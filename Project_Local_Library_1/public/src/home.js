@@ -24,32 +24,36 @@ function getMostCommonGenres(books) {
     results.push({name: genre, count: count})
   }
   results.sort((genreA, genreB) => (genreA.count < genreB.count) ? 1 : -1)
-  results.length = 5;
-  return results;
+   return results.slice(0, 5);
   }
 
+ //helper function 
+  function listByMostBorrows(books) {
+    books.sort((bookA, bookB) => 
+    bookA.borrows.length < bookB.borrows.length ? 1 : -1
+    );
+  return books;
+   }
 
 function getMostPopularBooks(books) {
   let results = [];
-  let mostBorrowed = books.sort((bookA, bookB) => 
-  bookA.borrows.length < bookB.borrows.length ? 1 : -1
-  );
-  mostBorrowed.length = 5;
+  
+  let mostBorrowed = listByMostBorrows(books);
+  
   for(let book in mostBorrowed){
   let title = mostBorrowed[book].title;
   let count = mostBorrowed[book].borrows.length;
   results.push({name: title, count: count});
   }
-  return results;
+  return results.slice(0, 5);
 }
 
 
 
 function getMostPopularAuthors(books, authors) {
   let results = []
-  let mostBorrows = books.sort((bookA, bookB) => 
-  bookA.borrows.length < bookB.borrows.length ? 1 : -1
-  );
+  
+  let mostBorrows = listByMostBorrows(books)
 
   for (let book of mostBorrows) {
     for (let author of authors) {
@@ -61,9 +65,9 @@ function getMostPopularAuthors(books, authors) {
       }
     }
   }
-  results.length = 5;
-  return results;
+  return results.slice(0, 5);
 }
+
 
 
 

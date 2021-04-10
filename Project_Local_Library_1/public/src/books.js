@@ -23,8 +23,7 @@ function getBorrowersForBook(book, accounts) {
      const account = accounts.find(account => account.id === id);
      return {id, returned, ...account,};
    });
-   borrowers.length = 10;
-   return borrowers;
+  return borrowers.slice(0, 10);
  }
 
 module.exports = {
